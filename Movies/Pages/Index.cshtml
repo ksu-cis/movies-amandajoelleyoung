@@ -6,58 +6,79 @@
 
 
 
-<div id="container">
+    <div id="container">
+        <form method="post">
+            <input type="text" name="search" id="search" value="@Model.search"/>
+            <input type="submit" value="Search and Filter" />
 
-    <div id="results">
-        <h1>Movies</h1>
-        @foreach (Movie movie in Model.Movies)
-        {
-            <div class="movie-entry">
-                <h2>@movie.Title <smaller>(@(@movie.MPAA_Rating == null ? "N/A" : @movie.MPAA_Rating))</smaller></h2>
-                <i>@movie.Major_Genre</i>
-                <div class="ratings">
-                    <div>
-                        Rotten Tomatoes
-                        <h3>@movie.Rotten_Tomatoes_Rating</h3>
-                    </div>
-                    <div />
-                    <div>
-                        IMBD
-                        <h3>@movie.IMDB_Rating</h3>
-                    </div>
+            <h3>MPAA Rating</h3>
+            <div >
+                <div>
+                    <label>
+                        <input type="checkbox" name="mpaa" value="G" checked="@Model.mpaa.Contains("G")"/>
+                        Rated G
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" name="mpaa" value="PG" checked="@Model.mpaa.Contains("PG")"/>
+                        Rated PG
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" name="mpaa" value="PG-13" checked="@Model.mpaa.Contains("PG-13")"/>
+                        Rated PG-13
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" name="mpaa" value="R" checked="@Model.mpaa.Contains("R")"/>
+                        Rated R
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" name="mpaa" value="NC-17" checked="@Model.mpaa.Contains("NC-17")"/>
+                        Rated NC-17
+                    </label>
                 </div>
             </div>
-        }
-    </div>
-
-    <div>
-        <form method="post">
-            <input type="text" name="search" id="search" />
-            <input type="submit" value="Search" />
-
-            <h2>MPAA Rating</h2>
-            <div class="checkbox-list">
+            <h3>Review Scores</h3>
+            <div>
                 <label>
-                    <input type="checkbox" name="rating" value="G" />
-                    Rated G
-                </label>
-                <label>
-                    <input type="checkbox" name="rating" value="PG" />
-                    Rated PG
-                </label>
-                <label>
-                    <input type="checkbox" name="rating" value="PG-13" />
-                    Rated PG-13
-                </label>
-                <label>
-                    <input type="checkbox" name="rating" value="R" />
-                    Rated R
-                </label>
-                <label>
-                    <input type="checkbox" name="rating" value="NC-17" />
-                    Rated NC-17
+                    Minimum IMBD Rating
+                    <input type="number" min="0" max="10" step=".1" name="minIMBD" value="@Model.minIMBD"/>
                 </label>
             </div>
+            <div>
+                <label>
+                    Maximum IMBD Rating
+                    <input type="number" min="0" max="10" step=".1" name="maxIMBD" value="@Model.maxIMBD"/>
+                </label>
+            </div>
+
+
         </form>
+        <div id="results">
+            <h1>Movies</h1>
+            @foreach (Movie movie in Model.Movies)
+            {
+                <div class="movie-entry">
+                    <h2>@movie.Title <smaller>(@(@movie.MPAA_Rating == null ? "N/A" : @movie.MPAA_Rating))</smaller></h2>
+                    <i>@movie.Major_Genre</i>
+                    <div class="ratings">
+                        <div>
+                            Rotten Tomatoes
+                            <h3>@movie.Rotten_Tomatoes_Rating</h3>
+                        </div>
+                        <div>
+                            IMBD
+                            <h3>@movie.IMDB_Rating</h3>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
     </div>
-</div>
